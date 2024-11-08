@@ -33,7 +33,7 @@
             (errorMessage) => {
                 // Uncomment this to enable for debugging
                 // console.error(`QR Code scan error: ${errorMessage}`);
-                toast.error('');
+                // toast.error('');
             }).catch(err => {
                 // Uncomment this to enable for debugging
                 // console.error(`Unable to start scanning: ${err}`);
