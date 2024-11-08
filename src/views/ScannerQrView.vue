@@ -3,7 +3,7 @@
     import { ref, onUnmounted } from 'vue';
     import { Html5Qrcode } from "html5-qrcode";
     import QrActions from '@/components/QrActions.vue';
-    import { useToast } from 'vue-toastification';
+    // import { useToast } from 'vue-toastification';
 
     const scannerQr = ref({
         input: null,
@@ -12,7 +12,7 @@
     });
 
     let html5Qrcode;
-    const toast = useToast();
+    // const toast = useToast();
 
     const cameraScanner = () => {
         html5Qrcode = new Html5Qrcode("scanner");
@@ -28,7 +28,7 @@
             (decodedText, decodeResult) => {
                 scannerQr.value.result = decodedText;
                 html5Qrcode.stop();
-                toast.success('QR code is successfully scanned!');
+                // toast.success('QR code is successfully scanned!');
             },
             (errorMessage) => {
                 // Uncomment this to enable for debugging
@@ -37,7 +37,7 @@
             }).catch(err => {
                 // Uncomment this to enable for debugging
                 // console.error(`Unable to start scanning: ${err}`);
-                toast.error('Unable to scan.');
+                // toast.error('Unable to scan.');
         });
     }
 
