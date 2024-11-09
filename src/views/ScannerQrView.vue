@@ -1,5 +1,4 @@
 <script setup>
-    import router from '@/router';
     import { ref, onUnmounted } from 'vue';
     import { Html5Qrcode } from "html5-qrcode";
     import QrActions from '@/components/QrActions.vue';
@@ -21,24 +20,27 @@
             fps: 30,
             qrbox: { width: 250, height: 250 }
         };
-
-        html5Qrcode.start(
-            { facingMode: "environment" },
-            config,
-            (decodedText, decodeResult) => {
-                scannerQr.value.result = decodedText;
-                html5Qrcode.stop();
-                toast.success('QR code is successfully scanned!');
-            },
-            (errorMessage) => {
-                // Uncomment this to enable for debugging
-                // console.error(`QR Code scan error: ${errorMessage}`);
-                toast.error('Unable to scan Qr code');
-            }).catch(err => {
-                // Uncomment this to enable for debugging
-                // console.error(`Unable to start scanning: ${err}`);
-                toast.error('Unable to run scan.');
-        });
+        try {
+            html5Qrcode.start(
+                { facingMode: "environment" },
+                config,
+                (decodedText) => {
+                    scannerQr.value.result = decodedText;
+                    html5Qrcode.stop();
+                    toast.success('QR code is successfully scanned!');
+                },
+                (errorMessage) => {
+                    // Uncomment this to enable for debugging
+                    console.error(`QR Code scan error: ${errorMessage}`);
+                    toast.error('Unable to scan Qr code');
+                }).catch(err => {
+                    // Uncomment this to enable for debugging
+                    console.error(`Camera not found: ${err}`);
+                    toast.error('Camera not found.');
+            });
+        } catch (error) {
+            console.error(`Error initializing scanner: ${error.message}`);
+        }
     }
 
     const handleFileUpload = (event) => {
@@ -66,17 +68,13 @@
 
     // Stop the camera when leaving the scanner route
     onUnmounted(() => {
-    if (html5Qrcode) {
-        html5Qrcode.stop().then(() => {
-        console.log("Camera stopped successfully.");
-        }).catch(err => {
-        console.error("Error stopping camera:", err);
-        });
-    }
+        if (html5Qrcode.isScanning) {
+        html5Qrcode.stop().catch((err) => console.warn("Error stopping scanner:", err));
+        }
     });
 </script>
 <template>
-    <div class="w-2/5 flex justify-center flex-col items-center gap-5">
+    <div class="lg:w-2/5 w-full flex justify-center flex-col items-center gap-5">
         <div class="w-full" id="scanner-qr-container">
                 <div v-show="scannerQr.result"> 
                     <label for="generate-input" class="block text-lg font-medium text-white">Scan Result</label>
@@ -92,8 +90,7 @@
                 </div>
 
                 <div class="mt-2 flex justify-center rounded-lg border border-dashed border-white/25 px-6 py-10">
-                  <div class="text-center flex gap-3">
-
+                  <div class="text-center flex gap-3 lg:flex-row flex-col lg:w-auto w-full">
                     <button @click="cameraScanner" type="button" class="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" id="generate-qr-action" data-action-qr="camera">Use my camera</button>
 
                     <label for="qr-upload" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 cursor-pointer" id="scanner-qr-action" data-action-qr="upload">
