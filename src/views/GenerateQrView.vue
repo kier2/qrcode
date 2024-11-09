@@ -2,24 +2,24 @@
     import QRCode from 'qrcode';
     import { reactive, ref } from 'vue';
     import QrActions from '@/components/QrActions.vue';
-    import { useToast } from 'vue-toastification';
+    // import { useToast } from 'vue-toastification';
 
     const form = reactive({
         qr: ''
     });
 
     const qrImgSrc = ref(''); 
-    const toast = useToast();
+    // const toast = useToast();
 
     const generateQr = async () => {
         try{
             qrImgSrc.value = await QRCode.toDataURL(form.qr);
             form.qr = '';
-            toast.success('QR code is successfully generated!');
+            // toast.success('QR code is successfully generated!');
         } catch (error) {
             // Uncomment this to enable for debugging
-            console.error('Error fetching instance', error);
-            toast.error('Unable to generate.');
+            console.error('Input empty!', error);
+            // toast.error('Unable to generate.');
         }
     }
 </script>
