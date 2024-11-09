@@ -1,6 +1,8 @@
 import './assets/main.css';
-import Toast from 'vue-toastification';
-import 'vue-toastification/dist/index.css';
+import Toast from '../node_modules/vue-toastification';
+// import Toast from 'vue-toastification';
+import '../node_modules/vue-toastification/dist/index.css';
+// import 'vue-toastification/dist/index.css';
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
