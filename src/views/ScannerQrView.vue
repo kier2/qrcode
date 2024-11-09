@@ -2,7 +2,7 @@
     import { ref, onUnmounted } from 'vue';
     import { Html5Qrcode } from "html5-qrcode";
     import QrActions from '@/components/QrActions.vue';
-    import { useToast } from 'vue-toastification';
+    // import { useToast } from 'vue-toastification';
 
     const scannerQr = ref({
         input: null,
@@ -11,7 +11,7 @@
     });
 
     let html5Qrcode;
-    const toast = useToast();
+    // const toast = useToast();
 
     const cameraScanner = () => {
         html5Qrcode = new Html5Qrcode("scanner");
@@ -27,16 +27,16 @@
                 (decodedText) => {
                     scannerQr.value.result = decodedText;
                     html5Qrcode.stop();
-                    toast.success('QR code is successfully scanned!');
+                    // toast.success('QR code is successfully scanned!');
                 },
                 (errorMessage) => {
                     // Uncomment this to enable for debugging
                     console.error(`QR Code scan error: ${errorMessage}`);
-                    toast.error('Unable to scan Qr code');
+                    // toast.error('Unable to scan Qr code');
                 }).catch(err => {
                     // Uncomment this to enable for debugging
                     console.error(`Camera not found: ${err}`);
-                    toast.error('Camera not found.');
+                    // toast.error('Camera not found.');
             });
         } catch (error) {
             console.error(`Error initializing scanner: ${error.message}`);
@@ -59,7 +59,7 @@
         .then(decodedText => {
             // console.log(`Decoded text: ${decodedText}`);
             scannerQr.value.result = decodedText;
-            toast.success('QR code is successfully scanned!');
+            // toast.success('QR code is successfully scanned!');
         })
         .catch(err => {
             console.error(`Error scanning file: ${err}`);
