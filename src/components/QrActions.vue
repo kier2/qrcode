@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
     <div class="w-2/5 flex justify-center flex-col items-center gap-5">
         <RouterLink to="/generate" class="text-center rounded-md bg-indigo-500 px-3.5 py-2.5 text-2xl font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 w-full" id="generate-qr-action" data-action="generate">Generate a QR Code</RouterLink>
