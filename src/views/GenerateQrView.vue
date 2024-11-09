@@ -1,5 +1,4 @@
 <script setup>
-    import router from '@/router';
     import QRCode from 'qrcode';
     import { reactive, ref } from 'vue';
     import QrActions from '@/components/QrActions.vue';
@@ -19,21 +18,21 @@
             toast.success('QR code is successfully generated!');
         } catch (error) {
             // Uncomment this to enable for debugging
-            // console.error('Error fetching instance', error);
+            console.error('Error fetching instance', error);
             toast.error('Unable to generate.');
         }
     }
 </script>
 <template>
-    <div class="w-2/5 flex justify-center flex-col items-center gap-5">
+    <div class="lg:w-2/5 py-4 lg:py-0 w-full flex justify-center flex-col items-center gap-5">
         <div class="w-full" id="generate-qr-container" >
             <form @submit.prevent="generateQr">
                 <div>
                     <label for="generate-input" class="block text-lg font-medium text-white">Generate a QR Code</label>
-                    <div class="relative mt-2 flex items-center">
+                    <div class="relative mt-2 flex items-center flex-col lg:flex-row">
                         <input v-model="form.qr" type="url" name="input-scanner" id="generate-input" class="block w-full rounded-md border-0 py-3 pl-2 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="https://">
-                        <div class="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                            <button type="submit" class="rounded-md bg-indigo-500 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 w-full" id="generate-qr-btn">Generate QR</button>
+                        <div class="lg:right-0 flex py-1.5 lg:pr-1.5 lg:absolute lg:inset-y-0 w-full lg:w-auto">
+                            <button type="submit" class="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 w-full md:py-0" id="generate-qr-btn">Generate QR</button>
                         </div>
                     </div>
                 </div>
