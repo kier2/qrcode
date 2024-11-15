@@ -4,5 +4,8 @@
 </script>
 
 <template>
+  <div class="lg:w-2/5 w-full">
     <QrActions></QrActions>
+  </div>
+    
 </template>
