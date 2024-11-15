@@ -12,14 +12,18 @@
     const toast = useToast();
 
     const generateQr = async () => {
-        try{
-            qrImgSrc.value = await QRCode.toDataURL(form.qr);
-            form.qr = '';
-            toast.success('QR code is successfully generated!');
-        } catch (error) {
-            // Uncomment this to enable for debugging
-            console.error('Input empty!', error);
-            toast.error('Unable to generate.');
+        if(form.qr == ''){
+            toast.error("Input can't be empty.");
+        } else{
+            try{
+                qrImgSrc.value = await QRCode.toDataURL(form.qr);
+                form.qr = '';
+                toast.success('QR code is successfully generated!');
+            } catch (error) {
+                // Uncomment this to enable for debugging
+                console.error('Unable to generate!', error);
+                toast.error('Unable to generate.');
+            }
         }
     }
 </script>
@@ -59,7 +63,6 @@
                 </div>
             </div>
         </div>
-
-        <QrActions class="w-full"></QrActions>
+        <QrActions></QrActions>
     </div>
 </template>
